@@ -84,7 +84,7 @@ personRouter.delete("/:id", async (req, res) => {
       res.status(404).json({ error: "Person not found" });
     }
     console.log("delete successfully");
-    res.status(200).json(response);
+    res.status(200).json({ message: "Person delete succcessfully" });
   } catch (e) {
     console.log(e);
     res.status(500).json({ error: "internal server error" });
