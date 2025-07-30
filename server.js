@@ -12,7 +12,15 @@ const app = express();
 
 require("dotenv").config();
 
+const logging = (req, res, next) => {
+  console.log(
+    `${new Date().toLocaleString()} Request made to :${req.originalUrl}`
+  );
+  next();
+};
+
 app.use(bodyParser.json());
+app.use(logging);
 app.get("/", (req, res) => {
   res.send(`
     <h1>Welcoome</h1>

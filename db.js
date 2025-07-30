@@ -6,11 +6,11 @@ require("dotenv").config();
 //DEFINE THE MONGO DB CONNECTION URL
 
 const mongoURLLocal = process.env.DB_URL_LOCAL; // your local database address
-const mongoURL = process.env.DB_URL; // REPLEACE WITH YOUR DATABASE NAME
+// const mongoURL = process.env.DB_URL; // REPLEACE WITH YOUR DATABASE NAME
 // REPLEACE WITH YOUR DATABASE NAME
 
 //SET UP CONNECTION
-mongoose.connect(mongoURL, {
+mongoose.connect(mongoURLLocal, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 });
