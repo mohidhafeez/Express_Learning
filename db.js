@@ -1,13 +1,13 @@
 // TO MAKE CONNECTION BETWEEN MONGO_DB AND THE NODE.JS
 
 const mongoose = require("mongoose");
+require("dotenv").config();
 
 //DEFINE THE MONGO DB CONNECTION URL
 
 // const mongoURL = "mongodb://localhost:27017/hotels"; // REPLEACE WITH YOUR DATABASE NAME
 
-const mongoURL =
-  "mongodb+srv://mohidhafeez:Hm64m6gjrk@cluster0.gnyemdt.mongodb.net/"; // REPLEACE WITH YOUR DATABASE NAME
+const mongoURL = process.env.DB_URL; // REPLEACE WITH YOUR DATABASE NAME
 // REPLEACE WITH YOUR DATABASE NAME
 
 //SET UP CONNECTION

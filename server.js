@@ -10,6 +10,8 @@ const bodyParser = require("body-parser");
 
 const app = express();
 
+require("dotenv").config();
+
 app.use(bodyParser.json());
 app.get("/", (req, res) => {
   res.send(`
@@ -31,7 +33,7 @@ app.use((req, res) => {
   res.status(404).send(notfound);
 });
 
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
 
 app.listen(PORT, () => {
   console.log(`SERVER STARED AT http://localhost:${PORT}`);
