@@ -26,6 +26,8 @@ personRouter.get("/", async (req, res) => {
   }
 });
 
+//GET USING THE TYPE
+
 personRouter.get("/:worktype", async (req, res) => {
   try {
     //PARAMETER
@@ -39,6 +41,33 @@ personRouter.get("/:worktype", async (req, res) => {
     } else {
       res.status(404).json({ error: "Invalid choice" });
     }
+  } catch (e) {
+    console.log(e);
+    res.status(500).json({ error: "internal server error" });
+  }
+});
+
+//UPDATE OPERATION
+//konsa record update krna hy or update mn kya chez update krni h
+
+personRouter.put("/:id", async (req, res) => {
+  try {
+    const personId = req.params.id;
+    const updatedPersonData = req.body;
+
+    const response = await Person.findByIdAndUpdate(
+      personId,
+      updatedPersonData,
+      {
+        new: true, // returns the new document
+        runValidators: true, // run mongooes validations
+      }
+    );
+    if (!response) {
+      res.status(404).json({ error: "person not found" });
+    }
+    console.log("data update");
+    res.status(200).json(response);
   } catch (e) {
     console.log(e);
     res.status(500).json({ error: "internal server error" });
