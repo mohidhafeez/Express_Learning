@@ -5,11 +5,11 @@ const person = require("./models/person");
 passport.use(
   new localStratgy(async (username, password, done) => {
     try {
-      console.log("creds received", username, password);
       const user = await person.findOne({ username: username });
       if (!user) return done(null, false, { message: "incorrect username" });
 
-      const isPasswordMatched = user.password === password ? true : false;
+      const isPasswordMatched = await user.comparePassword(password);
+      // const isPasswordMatched = user.password === password ? true : false;
       if (isPasswordMatched) {
         return done(null, user);
       } else {

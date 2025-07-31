@@ -26,7 +26,7 @@ app.use(logging);
 app.use(passport.initialize());
 
 const localAuthMiddleware = passport.authenticate("local", { session: false });
-app.get("/", localAuthMiddleware, (req, res) => {
+app.get("/", (req, res) => {
   res.send(`
     <h1>Welcoome</h1>
     <h2>how can I help you?</h2>
@@ -34,7 +34,7 @@ app.get("/", localAuthMiddleware, (req, res) => {
 });
 
 app.use("/person", localAuthMiddleware, personRouter);
-app.use("/menu", localAuthMiddleware, menuItemRouter);
+app.use("/menu", menuItemRouter);
 
 app.use((req, res) => {
   notfound = {
