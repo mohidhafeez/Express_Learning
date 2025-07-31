@@ -7,6 +7,7 @@ const personRouter = require("./routes/personsRoute");
 const menuItemRouter = require("./routes/menuItemRoute");
 
 const bodyParser = require("body-parser");
+const passport = require("./auth");
 
 const app = express();
 
@@ -21,15 +22,19 @@ const logging = (req, res, next) => {
 
 app.use(bodyParser.json());
 app.use(logging);
-app.get("/", (req, res) => {
+
+app.use(passport.initialize());
+
+const localAuthMiddleware = passport.authenticate("local", { session: false });
+app.get("/", localAuthMiddleware, (req, res) => {
   res.send(`
     <h1>Welcoome</h1>
     <h2>how can I help you?</h2>
     `);
 });
 
-app.use("/person", personRouter);
-app.use("/menu", menuItemRouter);
+app.use("/person", localAuthMiddleware, personRouter);
+app.use("/menu", localAuthMiddleware, menuItemRouter);
 
 app.use((req, res) => {
   notfound = {
